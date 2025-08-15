@@ -1,47 +1,56 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, Package, ShoppingCart, Database } from 'lucide-react';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Shield, Package, ShoppingCart, Database } from "lucide-react";
 
 const RoleSelection = () => {
   const navigate = useNavigate();
-  const [selectedRole, setSelectedRole] = useState('');
+  const [selectedRole, setSelectedRole] = useState("");
 
   const roles = [
     {
-      id: 'supplier',
-      title: 'Supplier/Ministry',
-      description: 'Manage inventory, buy from vendors, sell to vendors, view full product history',
+      id: "supplier",
+      title: "Supplier/Ministry",
+      description:
+        "Manage inventory, buy from vendors, sell to vendors, view full product history",
       icon: Shield,
-      permissions: 'Read & Write',
-      color: 'bg-blue-500'
+      permissions: "Read & Write",
+      color: "bg-blue-500",
     },
     {
-      id: 'vendor',
-      title: 'Vendor',
-      description: 'Add products, sell to customers, view transaction history and analytics',
+      id: "vendor",
+      title: "Vendor",
+      description:
+        "Add products, sell to customers, view transaction history and analytics",
       icon: Package,
-      permissions: 'Write (Add Products)',
-      color: 'bg-green-500'
+      permissions: "Write (Add Products)",
+      color: "bg-green-500",
     },
     {
-      id: 'customer',
-      title: 'Customer',
-      description: 'Browse products, add to cart, purchase items, track orders',
+      id: "customer",
+      title: "Customer",
+      description: "Browse products, add to cart, purchase items, track orders",
       icon: ShoppingCart,
-      permissions: 'Read Only',
-      color: 'bg-purple-500'
+      permissions: "Read Only",
+      color: "bg-purple-500",
     },
     {
-      id: 'expert',
-      title: 'Blockchain Expert',
-      description: 'View all transactions, manage consensus, security settings, fault tolerance',
+      id: "expert",
+      title: "Blockchain Expert",
+      description:
+        "View all transactions, manage consensus, security settings, fault tolerance",
       icon: Database,
-      permissions: 'Read & Write (Admin)',
-      color: 'bg-red-500'
-    }
+      permissions: "Read & Write (Admin)",
+      color: "bg-red-500",
+    },
   ];
 
   const handleRoleSelect = (roleId) => {
@@ -50,7 +59,7 @@ const RoleSelection = () => {
 
   const handleContinue = () => {
     if (selectedRole) {
-      navigate('/wallet-connection', { state: { role: selectedRole } });
+      navigate("/wallet-connection", { state: { role: selectedRole } });
     }
   };
 
@@ -75,14 +84,14 @@ const RoleSelection = () => {
           {roles.map((role) => {
             const IconComponent = role.icon;
             const isSelected = selectedRole === role.id;
-            
+
             return (
-              <Card 
+              <Card
                 key={role.id}
                 className={`cursor-pointer transition-all duration-200 hover:shadow-lg ${
-                  isSelected 
-                    ? 'ring-2 ring-blue-500 shadow-lg' 
-                    : 'hover:shadow-md'
+                  isSelected
+                    ? "ring-2 ring-blue-500 shadow-lg"
+                    : "hover:shadow-md"
                 }`}
                 onClick={() => handleRoleSelect(role.id)}
               >
@@ -110,13 +119,16 @@ const RoleSelection = () => {
         </div>
 
         <div className="text-center">
-          <Button 
+          <Button
             onClick={handleContinue}
             disabled={!selectedRole}
             size="lg"
             className="px-8"
           >
-            Continue with {selectedRole ? roles.find(r => r.id === selectedRole)?.title : 'Selected Role'}
+            Continue with{" "}
+            {selectedRole
+              ? roles.find((r) => r.id === selectedRole)?.title
+              : "Selected Role"}
           </Button>
         </div>
 
@@ -133,4 +145,3 @@ const RoleSelection = () => {
 };
 
 export default RoleSelection;
-
